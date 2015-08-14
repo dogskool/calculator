@@ -1,0 +1,12 @@
+// Copyright            : (C) 2015 Garvit Khatri (garvitdelhi@gmail.com)
+{
+	"manifest_version": 2,
+	"name":"Calculator",
+	"description": "This is a normal Calculator.",
+  	"version": "1.0",
+  	"browser_action": {
+    	"default_icon": "images/icon.png",
+	    "default_popup": "popup.html",
+	    "default_title": "Calculator"
+  	}
+}
