@@ -33,20 +33,21 @@
 		while(stack.length > 0) {
 			result.push(stack.pop());
 		}
+		console.log(result);
 		for(var i = 0; i < result.length; ++i) {
 			if(precedence[result[i]] == undefined) {
 				stack.push(result[i]);
 			} else {
 				var operand1 = stack.pop();
 				var operand2 = stack.pop();
-				if(isNaN(operand1) && operand1.indexof('.') != -1) {
+				if(typeof(operand1) == "string" && operand1.indexOf('.') != -1) {
 					operand1 = parseFloat(operand1);
-				} else if(isNaN(operand1)) {
+				} else if(typeof(operand1) == "string") {
 					operand1 = parseInt(operand1);
 				}
-				if(isNaN(operand2) && operand2.indexof('.') != -1) {
+				if(typeof(operand2) == "string" && operand2.indexOf('.') != -1) {
 					operand2 = parseFloat(operand2);
-				} else if(isNaN(operand1)) {
+				} else if(typeof(operand2) == "string") {
 					operand2 = parseInt(operand2);
 				}
 				if(result[i] == '/') {
@@ -60,6 +61,7 @@
 				}
 			}
 		}
+		// Not working for case 5+8/4+5*2-8/3+2 try solving it @Ekta!!
 		$('#ans').text(stack.pop());
 	})
 }).call(this);
