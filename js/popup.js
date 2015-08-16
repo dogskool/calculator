@@ -12,21 +12,50 @@
 		var temp = "";
 		var stack =[];
 		var precedence = {
+			'^':5,
 			'/':4, 
 			'*':4, 
 			'+':2, 
-			'-':2
+			'-':2,
+			'(':-1
 		};
+		
+		//console.log(input);
+		
 		for(var i = 0; i < input.length; ++i) {
-			if(precedence[input[i]] == undefined) {
+			if(input[i] >= '0' && input[i] <='9') {
 				temp = temp + input[i];
-			} else {
-				result.push(temp);
+			} 
+			else if(input[i] == '('){
+				//console.log("Pushin : " + input[i]);
+				stack.push(input[i]);
+			}
+			else if(input[i] ==')'){
+				if(temp!= "")
+					result.push(temp);
+				temp = "";
+				while(stack.length !=0 && stack[stack.length - 1]!='('){
+					result.push(stack.pop());
+				}
+				
+				if (stack.length !=0 && stack[stack.length - 1] != '('){
+					res = "Invalid expression";
+				}
+				else 
+					var v = stack.pop();
+				
+			}
+			else if (input[i] == '^' || input[i] == '/' || input[i] == '+' || input[i] == '-' || input[i] == '*'){
+				//console.log(temp);
+				//console.log("Appending in result : ", + temp);
+				if(temp!= "")
+					result.push(temp);
 				temp = "";
 				while(stack.length != 0 && precedence[stack[stack.length-1]] >= precedence[input[i]]) {
 					result.push(stack.pop());
 				}
 				stack.push(input[i]);
+				//console.log("Pushin : " + input[i]);
 			}
 		}
 		if(temp != "") 
@@ -36,7 +65,7 @@
 			result.push(stack.pop());
 		}
 		
-		console.log(result);
+		//console.log(result);
 		
 		var ele;
 		
@@ -70,10 +99,13 @@
 					ele = operand2-operand1;
 					//stack.push(operand2-operand1);
 				}
+				else if ( result[i] == '^'){
+					ele = Math.pow(operand2,operand1);
+				}
 				
 				stack.push(ele);
 			}
-			console.log(ele);
+			//console.log(ele);
 		}
 		$('#ans').text(stack.pop());
 	})
